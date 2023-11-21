@@ -1,0 +1,299 @@
+<html mxlns:th="http://www.thymeleaf.org">
+  <head th:fragment="registFragmentHead">
+    <link rel="stylesheet" href="/styles/user/regist.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css"
+      integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.standalone.min.css"
+      integrity="sha512-D5/oUZrMTZE/y4ldsD6UOeuPR4lwjLnfNMWkjC0pffPTCVlqzcHTNvkn3dhL7C0gYifHQJAIrRTASbMvLmpEug=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.min.css"
+      integrity="sha512-aQb0/doxDGrw/OC7drNaJQkIKFu6eSWnVMAwPN64p6sZKeJ4QCDYL42Rumw2ZtL8DB9f66q4CnLIUnAw28dEbg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.standalone.min.css"
+      integrity="sha512-t+00JqxGbnKSfg/4We7ulJjd3fGJWsleNNBSXRk9/3417ojFqSmkBfAJ/3+zpTFfGNZyKxPVGwWvaRuGdtpEEA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"
+      integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js"
+      integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div th:fragment="registFragment" class="container">
+      <form action="/user/regist" method="post" class="row">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="user-id">ID</span>
+          <input
+            type="text"
+            oninput="EnNumInput(this)"
+            class="form-control"
+            placeholder="ID"
+            aria-label="user-id"
+            aria-describedby="user-id"
+            id="input_id"
+            name="userId"
+            minlength="3"
+            maxlength="20"
+          />
+          <span class="input-group-text" id="password">PW</span>
+          <input
+            type="password"
+            class="form-control"
+            placeholder="password"
+            aria-label="password"
+            aria-describedby="password"
+            id="input_pw"
+            name="password"
+            minlength="10"
+            maxlength="30"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="name">Name</span>
+          <input
+            type="text"
+            class="form-control"
+            onkeyup="lengthCheck(this,20)"
+            placeholder="Name"
+            aria-label="name"
+            aria-describedby="name"
+            id="name"
+            name="name"
+            minlength="2"
+            maxlength="20"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="phone">Phone</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Phone Number"
+            aria-label="phone"
+            aria-describedby="phone"
+            id="phone"
+            name="phone"
+            oninput="phoneformat(this)"
+            maxlength="13";
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="address">Address</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Address"
+            aria-label="address"
+            aria-describedby="address"
+            id="address"
+            name="address"
+            minlength="5"
+            maxlength="100"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="email">E-Mail</span>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="example@gmail.com"
+            aria-label="email"
+            aria-describedby="email"
+            id="email"
+            name="email"
+            onblur="emailChecker(this)"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="git-address">Github Address</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Github 아이디를 입력해보세요"
+            aria-label="git-address"
+            aria-describedby="git-address"
+            id="git-address"
+            name="gitAddress"
+            onblur="gitFormatter(this)"
+          />
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-text">
+            <input
+              type="radio"
+              class="form-check-input mt-0"
+              value="1"
+              aria-label="gender"
+              id="gender-male"
+              name="gender"
+            />
+          </div>
+          <label for="gender-male" class="form-control">Male</label>
+          <div class="input-group-text">
+            <input
+              type="radio"
+              class="form-check-input mt-0"
+              value="2"
+              aria-label="gender"
+              id="gender-female"
+              name="gender"
+            />
+          </div>
+          <label for="gender-female" class="form-control">Female</label>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="birth">Birth Day</span>
+          <input
+            type="text"
+            class="form-control"
+            aria-label="birth"
+            aria-describedby="birth"
+            id="datePicker"
+            name="birth"
+            autocomplete="off"
+          />
+        </div>
+        
+        
+
+        <!-- <div class="input-group mb-3">
+          <span class="input-group-text" id="birth">Birth Day</span>
+          <input
+            type="date"
+            class="form-control"
+            aria-label="birth"
+            aria-describedby="birth"
+            id="birth"
+            name="birth"
+          />
+        </div> -->
+        <div class="input-group">
+          <button class="btn btn-primary btn-lg m-auto" id="regit_submit">Sign in</button>
+        </div>
+      </form>
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      		<div class="modal-header">
+        	<h1 class="modal-title fs-5" id="staticBackdropLabel">입력 오류</h1>
+        	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      	</div>
+      	<div class="modal-body" id="modal_message">	  
+      	</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      		</div>
+    	</div>
+  		</div>
+	</div>
+      <script>
+        $("#datePicker").datepicker({
+          format: "yyyy-mm-dd",
+          //   startDate: "-1d",
+          endDate: "1d",
+          autoclose: true,
+          clearBtn: true,
+          title: "Birth day",
+          language: "ko",
+          //   multidate: true,
+        });
+        function openModal(error){
+			var modal=new bootstrap.Modal(document.getElementById('staticBackdrop'));
+			document.getElementById('modal_message').innerHTML=error;
+			modal.show();
+		}
+        function EnNumInput(e)  {
+  		e.value = e.value.replace(/[^A-Za-z]/ig, '')
+  		}
+  		function lengthCheck(target,length){
+			  var str=target.value;
+			  var targetLength=str.length;
+			  var totalbyte=0;
+			  var len=0;
+			  var char="";
+			  var tempstr="";
+			  
+			  for(var i=0; i<targetLength; i++){
+				  char=str.charAt(i);
+				  if(escape(char).length >4 ){
+					  totalbyte+=2;
+				  }else{
+					  totalbyte++;
+				  }
+			  }
+			  if(totalbyte>length){
+				  openModal('한글 이름은 최대 10글자까지만 입력 가능합니다.');
+				  //alert("한글 이름은 최대 10글자까지만 입력 가능합니다.");
+				  target.value=null;
+			  }
+		  }
+		function phoneformat(target){
+			  var number=target.value.replace(/\D/g,'');
+			  var formatted=number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+			  target.value=formatted;
+			}
+		function emailChecker(target){
+			var email=target.value.toLowerCase().endsWith('.com');
+      		var achecker=target.value.includes('@');
+      		if(!email||!achecker){
+			openModal('입력하신 이메일이 이메일 형식이 아닙니다. 다시 입력해주세요');
+       		target.value=null;
+      			}
+			}
+		function gitFormatter(target){
+			var gitid=target.value;
+			var formatted="https://github.com/"+gitid;
+			target.value=formatted;
+		}
+		document.getElementById("regit_submit").addEventListener('click', function(event){
+			var inputID = document.getElementById('input_id').value;
+			console.log(inputID);
+			var inputPW = document.getElementById('input_pw').value;
+			var inputName = document.getElementById('name').value;
+			var inputPhone = document.getElementById('phone').value;
+			var inputgitAdd = document.getElementById('git-address').value;
+			var inputEmail = document.getElementById('email').value;
+			
+			if(inputID==null||
+			inputPW==null||
+			inputName==null||
+			inputPhone==null||
+			inputgitAdd==null||
+			inputEmail==null	
+			){
+				event.preventDefault();
+				openModal('필수 입력 정보가 다 입력되지 않았습니다. 확인해주세요');
+			}
+		})	
+      </script>
+      
+    </div>
+  </body>
+</html>
