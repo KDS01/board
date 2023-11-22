@@ -29,5 +29,5 @@ public class User {
 	private String gitAddress;
 	private int gender;
 	private Date birth;
-	private Timestamp createdAt;
+	private Date createdAt;
 }

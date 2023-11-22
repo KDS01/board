@@ -31,11 +31,20 @@ public class UserController {
 
 		return "basic/layout";
 	}
+//	@GetMapping("login")
+//	public String loginPage(Model model, HttpSession session) {
+//		model.addAttribute("title", "로그인");
+//		model.addAttribute("path", "/user/login"); 
+//		model.addAttribute("content", "loginFragment"); 
+//		model.addAttribute("contentHead", "loginFragmentHead");
+//		session.removeAttribute("requestError");
+//		return "/basic/layout";
+//	}
 
 	@PostMapping("regist")
 	public String registPost(@RequestParam Map<String, String> map, Model model) {
 		try {
-			User tempUser = new User(map.get("userId"), map.get("password"), map.get("name"), map.get("phone"),
+			User tempUser = new User(map.get("user_id"), map.get("password"), map.get("name"), map.get("phone"),
 					map.get("email"));
 			if (map.get("address") != "") {
 				tempUser.setAddress(map.get("address"));
@@ -66,13 +75,27 @@ public class UserController {
 
 	@PostMapping("login")
 	public String loginPost(@RequestParam Map<String, String> map, HttpSession session) {
+		try {
+		System.out.println(map.get("user_id"));
 		User tempUser = new User();
-		tempUser.setUserId(map.get("userId"));
+		tempUser.setUserId(map.get("user_id"));
 		tempUser.setPassword(map.get("password"));
+//		if(tempUser.getUserId()==null
+//				&&tempUser.getPassword()==null) {
+//			
+//			
+//		}
+		System.out.println(map.get("password"));
 		tempUser = userService.login(tempUser);
 
 		if (tempUser != null) {
-			session.setAttribute("userName", tempUser.getName());
+			session.setAttribute("userName", tempUser.getUserId());
+		}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session.setAttribute("error", "로그인 실패");
+			return "redirect:/";
 		}
 		return "redirect:/";
 	}

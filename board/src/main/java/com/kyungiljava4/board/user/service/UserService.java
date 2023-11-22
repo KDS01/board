@@ -17,6 +17,9 @@ public class UserService {
 		user.setPassword(cryptoPassword(user.getPassword()));
 		userDao.add(user);
 	}
+	public User get(String userId) {
+		return userDao.get(userId);
+	}
 
 	public User login(User user) {
 		User tempUser = userDao.get(user.getUserId());

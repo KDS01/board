@@ -22,7 +22,7 @@ public class UserDao {
 			// TODO Auto-generated method stub
 			return new User(rs.getInt("id"), rs.getString("user_id"), rs.getString("password"), rs.getString("name"),
 					rs.getString("phone"), rs.getString("address"), rs.getString("email"), rs.getString("git_address"),
-					rs.getInt("gender"), rs.getDate("birth"), rs.getTimestamp("created_at"));
+					rs.getInt("gender"), rs.getDate("birth"), rs.getDate("createAt"));
 		}
 	};
 
@@ -32,8 +32,11 @@ public class UserDao {
 				user.getUserId(), user.getPassword(), user.getName(), user.getPhone(), user.getAddress(),
 				user.getEmail(), user.getGitAddress(), user.getGender(), user.getBirth());
 	}
+	public User get(int id) {
+		return jdbcTemplate.queryForObject("select * from users where \"id\"=?", mapper, id);
+	}
 	
 	public User get(String userId) {
-		return jdbcTemplate.queryForObject("select * from users where \"user_id\"=?", mapper, userId);
+		return jdbcTemplate.queryForObject("select * from USERS where \"user_id\"=?", mapper, userId);
 	}
 }

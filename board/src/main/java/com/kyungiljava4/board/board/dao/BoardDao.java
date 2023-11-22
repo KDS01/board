@@ -21,15 +21,23 @@ public class BoardDao {
 		@Override
 		public Board mapRow(ResultSet rs, int rowNum) throws SQLException {
 			// TODO Auto-generated method stub
-			return new Board(rs.getInt("id"), rs.getString("title"), rs.getString("content"), rs.getInt("views"), 0, 0,
-					rs.getTimestamp("created_at"), rs.getInt("is_withdrew") == 1, rs.getInt("user_id"));
+			return new Board(
+					rs.getInt("id"),
+					rs.getInt("user_id"),
+					rs.getString("title"),
+					rs.getString("content"),
+					rs.getInt("view"), 
+					0, 
+					0,
+					rs.getDate("createdAt"),
+					rs.getInt("is_withdrew") == 1);
 		}
 	};
 
 	public void add(Board board) {
 		jdbcTemplate.update(
 				"insert into boards (\"title\", \"content\", \"is_withdrew\", \"user_id\") values (?, ?, ?, ?)",
-				board.getTitle(), board.getContent(), 0, 1);
+				board.getTitle(), board.getContent(), 0, board.getId());
 	}
 	
 	public List<Board> getAll(){
