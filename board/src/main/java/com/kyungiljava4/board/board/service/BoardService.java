@@ -1,14 +1,16 @@
 package com.kyungiljava4.board.board.service;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.kyungiljava4.board.board.dao.BoardDao;
 import com.kyungiljava4.board.board.domain.Board;
 import com.kyungiljava4.board.user.dao.UserDao;
+
+
 
 @Service
 public class BoardService {
@@ -20,16 +22,14 @@ public class BoardService {
 	public void add(Board board) {
 		boardDao.add(board);
 	}
-	public List<String> getUserIdFromUsers(){
-		List<Board> list=boardDao.getAll();
-		List<String> IdList=new ArrayList<>();
-		for(int i=0;i<list.size();i++) {
-			IdList.add(i,userDao.get(list.get(i).getUserId()).getUserId());
-		}
-		return IdList;
+	public int pagingNumber() {
+	    int count= boardDao.itemCounts();
+	    int pagingNumber=10;
+	    
+	    int result=(int)Math.ceil((double)count/pagingNumber);
+	    return result;
 	}
-	
-	public List<Board> getAll(){
-		return boardDao.getAll();
+	public List<Board> getAll(int offset,int pagesize){
+		return boardDao.getAll(offset,pagesize);
 	}
 }

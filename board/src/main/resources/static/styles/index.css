@@ -9,3 +9,12 @@ body {
   margin: 0;
   padding: 0;
 }
+.pagination_area{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.pagination_area none{
+	display: none;
+}
+

@@ -8,6 +8,7 @@
         >
       </div>
       <form
+      	id="login_form"
         th:if="${session.userName == null}"
         action="/user/login"
         method="post"
@@ -36,6 +37,7 @@
           </button></a
         >
       </form>
+      <script scr="/scripts/login.js"></script>
     </div>
   </body>
 </html>

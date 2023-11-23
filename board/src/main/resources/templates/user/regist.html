@@ -238,7 +238,7 @@
 	
 			const tempName=e.target.name.value.replace(korReg, "aa");
 			const tempPhone=e.target.phone.value.replace(/^(\d{3})(\d{3,4})(\d{4})$/,`$1-$2-$3`);
-			let msg="";
+			let msg=checkId();
 	
 			if(!idreg.test(e.target.userId.value)){
 				if(e.target.userId.value.length <3||e.target.userId.value.length>20){

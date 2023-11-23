@@ -1,6 +1,6 @@
 package com.kyungiljava4.board.board.domain;
 
-import java.sql.Timestamp;
+
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 public class Board {
 	private int id;
 	@NonNull
+	private int userId;
+	@NonNull
 	private String title;
 	@NonNull
 	private String content;
@@ -22,6 +24,5 @@ public class Board {
 	private int hates = 0;
 	private Date createdAt;
 	private boolean isWithdrew = false;
-	@NonNull
-	private int userId;
+	private String userName;
 }

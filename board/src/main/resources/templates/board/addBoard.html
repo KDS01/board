@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html mxlns:th="http://www.thymeleaf.org" lang="ko">
+  <head th:fragment="addBoardFragmentHead">
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+  </head>
+  
+<body>
+	 <div th:fragment="addBoardFragment" class="add container">
+      <form action="/add" method="post">
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            id="floatingInput"
+            placeholder="제목"
+          />
+          <label for="floatingInput">제목</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <textarea
+            class="form-control"
+            name="content"
+            placeholder="글"
+            id="floatingTextarea"
+          ></textarea>
+          <label for="floatingTextarea">내용</label>
+        </div>
+        <button class="btn btn-primary">글 올리기</button>
+      </form>
+	 </div>
+</body>
+</html>

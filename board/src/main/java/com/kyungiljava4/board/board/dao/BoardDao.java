@@ -10,11 +10,15 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kyungiljava4.board.board.domain.Board;
+import com.kyungiljava4.board.user.dao.UserDao;
+import com.kyungiljava4.board.user.domain.User;
 
 @Repository
 public class BoardDao {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	@Autowired
+	UserDao userDao;
 
 	private RowMapper<Board> mapper = new RowMapper<Board>() {
 
@@ -29,18 +33,26 @@ public class BoardDao {
 					rs.getInt("view"), 
 					0, 
 					0,
-					rs.getDate("createdAt"),
-					rs.getInt("is_withdrew") == 1);
+					rs.getDate("createAt"),
+					rs.getInt("is_withdrew")==1,
+					rs.getString("name")
+					);
 		}
 	};
-
 	public void add(Board board) {
 		jdbcTemplate.update(
 				"insert into boards (\"title\", \"content\", \"is_withdrew\", \"user_id\") values (?, ?, ?, ?)",
-				board.getTitle(), board.getContent(), 0, board.getId());
+				board.getTitle(), board.getContent(),board.isWithdrew() ? 1:0, board.getUserId());
 	}
 	
-	public List<Board> getAll(){
-		return jdbcTemplate.query("select * from boards order by \"id\"", mapper);
+	public List<Board> getAll(int page,int pageSize){
+		int offset=(page-1) * pageSize;
+		return jdbcTemplate.query("select a.*,b.\"name\" from boards a join users b on a.\"user_id\"=b.\"id\" order by a.\"id\" offset ? rows fetch first ? rows only",new Object[] {offset,pageSize}, mapper);
 	}
+	public int itemCounts() {
+		int result=jdbcTemplate.queryForObject("select count(*) from boards",Integer.class);
+		return result;
+	}
+	
+
 }
