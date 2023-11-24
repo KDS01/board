@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html mxlns:th="http://www.thymeleaf.org" lang="ko">
+<html mxlns:th="http://www.thymeleaf.org">
   <head th:fragment="contentFragmentHead">
-    <meta charset="UTF-8">
-    <title>게시글</title>
+    <link rel="stylesheet" href="/styles/board/item.css" />
   </head>
-<body>
-	 <div th:fragment="contentFragment" class="content container">
-        <div class="form-floating mb-3">
-          <label for="floatingInput">제목</label>
-          <div>
-			  
-		  </div>
-        </div>
-        <div class="form-floating mb-3">
-          <label for="floatingTextarea">내용</label>
-        </div>
-        <button class="btn btn-primary">돌아가기</button>
-	 </div>
-</body>
+  <body>
+    <div th:fragment="contentFragment" th:object="${board}" class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div th:text="*{userName}" class="user-name-data"></div>
+        <div th:text="*{createdAt}"></div>
+      </div>
+      <hr />
+      <p th:utext="*{content}"></p>
+      <div >
+		  
+		  
+	  </div>
+    </div>
+  </body>
 </html>

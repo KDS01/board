@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,6 +51,7 @@ public class BoardController {
 		}
 		return "redirect:/";
 	}
+	
 
 	@GetMapping("/notice")
 	public String noticePage(Model model) {
@@ -58,5 +60,17 @@ public class BoardController {
 		model.addAttribute("content", "noticeFragment");
 		model.addAttribute("contentHead", "noticeFragmentHead");
 		return "/basic/layout";
+	}
+	@GetMapping("/board/{boardId}")//boardId를 라우터로써 받게 된다
+	public String itemPage(@PathVariable("boardId")int boardId, Model model) {
+		Board board=boardService.get(boardId);
+		model.addAttribute("title",board.getTitle());
+		model.addAttribute("path","/board/content");
+		model.addAttribute("content","contentFragment");
+		model.addAttribute("contentHead","contentFragmentHead");
+		board.setContent(board.getContent().replace("\n", "<br />"));
+		model.addAttribute("board",board);
+		return "/basic/layout";
+		
 	}
 }

@@ -17,4 +17,17 @@ body {
 .pagination_area none{
 	display: none;
 }
+.user-git-address{
+	display: none;  
+	border: 1px solid black;
+	border-radius: 1em;
+	padding:0.5rem 1rem;
+	position: absolute;
+	background-color: white;
+	z-index: 100;
+	transform: translate(-10%);
 
+}
+user-name:hover .user-git-address{
+	display: block;
+}

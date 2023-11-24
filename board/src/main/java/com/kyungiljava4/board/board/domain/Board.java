@@ -25,4 +25,5 @@ public class Board {
 	private Date createdAt;
 	private boolean isWithdrew = false;
 	private String userName;
+	private String git_address;
 }
