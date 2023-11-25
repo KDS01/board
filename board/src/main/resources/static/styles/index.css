@@ -31,3 +31,7 @@ body {
 user-name:hover .user-git-address{
 	display: block;
 }
+form{
+	margin-bottom: 6rem;
+	
+}

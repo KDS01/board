@@ -56,9 +56,7 @@ public class BoardDao {
 		return result;
 	}
 	public Board get(int id) {
-		return jdbcTemplate.queryForObject("select a.*,b.\"name\",b.\"git_address\" from boards a join users b on a.\"user_id\"=b.\"id\" where a.\"id\"=?",mapper,id);
-		
-		
+		return jdbcTemplate.queryForObject("select a.*,b.\"name\",b.\"git_address\" from boards a join users b on a.\"user_id\"=b.\"id\" where a.\"id\"=?",mapper,id);	
 	}
 	
 

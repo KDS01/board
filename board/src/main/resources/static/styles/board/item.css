@@ -3,3 +3,21 @@
 	font-size: 1.5rem;
 	color: blue;	
 }
+.comment_area{
+	border-right: 70%;
+	display: flex;
+}
+.form-control{
+	height: 14px;
+	width: 45rem;	
+}
+.btn btn-primary{
+	height: 2.2rem;
+}
+.comment_btn{
+	display: flex;
+	flex-direction: column;
+}
+.comments_list{
+	border-top:1px solid black;
+}

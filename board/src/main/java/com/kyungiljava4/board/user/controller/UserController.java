@@ -98,6 +98,8 @@ public class UserController {
 			session.setAttribute("error", "로그인 실패");
 			return "redirect:/";
 		}
+		System.out.println(session.getAttribute("userName"));
+		System.out.println(session.getAttribute("userId"));
 		return "redirect:/";
 	}
 	

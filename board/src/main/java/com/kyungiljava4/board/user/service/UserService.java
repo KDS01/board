@@ -20,6 +20,9 @@ public class UserService {
 	public User get(String userId) {
 		return userDao.get(userId);
 	}
+	public User get(int id) {
+		return userDao.get(id);
+	}
 
 	public User login(User user) {
 		User tempUser = userDao.get(user.getUserId());

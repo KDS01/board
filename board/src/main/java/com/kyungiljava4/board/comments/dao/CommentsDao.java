@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kyungiljava4.board.board.dao.BoardDao;
 import com.kyungiljava4.board.comments.domain.Comments;
@@ -36,18 +37,23 @@ public class CommentsDao {
 					);
 		}
 	};
-	
+	@Transactional
 	public void add(Comments comments) {
-		jdbcTemplate.update("insert into comments (\"board_id\", \"user_id\", \"content\", \"comment_id\") values (?, ?, ?, ?)",
+		jdbcTemplate.update("insert into comments (\"board_id\", \"user_id\", \"content\") values (?, ?, ?)",
 				comments.getBoard_id(),
 				comments.getUser_id(),
-				comments.getContent(),
-				comments.getComment_id()
+				comments.getContent()
 				);
+		jdbcTemplate.update("update comments set \"comment_id\"=? where \"id\"=? ",
+				comments.getComment_id(),
+				0);
 	}
 	public Comments get(int id) {
 		String query="select a.*,b.\"id\",c.\"id\" from comments a join users b on a.\"user_id\"=b.\"id\" join boards c on a.\"board_id\"=c.\"id\" where a.\"id\"=?";
 		return jdbcTemplate.queryForObject(query, mapper,id);
+	}
+	public Comments getComByBoardId(int boardId) {
+		String query="select a.*,b.\"id\",c.\"id\" from comments a join users b on a.\"user_id\"=b.\"id\" join boards c on a.\"board_id\"=c.\"id\" where a.\"id\"=?";
 	}
 	
 
