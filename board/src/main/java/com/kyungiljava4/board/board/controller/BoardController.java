@@ -72,7 +72,6 @@ public class BoardController {
 	@GetMapping("/board/{boardId}")//boardId를 라우터로써 받게 된다
 	public String itemPage(@PathVariable("boardId")int boardId, Model model) {
 		Board board=boardService.get(boardId);
-		commentsService.
 		model.addAttribute("title",board.getTitle());
 		model.addAttribute("path","/board/content");
 		model.addAttribute("content","contentFragment");
@@ -82,25 +81,25 @@ public class BoardController {
 		return "/basic/layout";
 		
 	}
-	@PostMapping("/board/{boardId}/comments")
-	public String addComments(@PathVariable("boardId")int boardId,@RequestParam Map<String,String> map, Model model,HttpSession session) {
-		if(session.getAttribute("userName")!=null) {
-		Board board=boardService.get(boardId);
-		Integer sessionId=(Integer)(session.getAttribute("userId"));
-		int userId=(sessionId!=null) ? sessionId.intValue():0;
-		User user=userService.get(userId);
-		Comments comments= new Comments();
-		comments.setBoard_id(board.getId());
-		comments.setUser_id(userId);
-		comments.setContent(map.get("comments"));
-		comments.setComment_id(0);
-		commentsService.add(comments);
-		model.addAttribute("nickname",user.getUserId());
-		model.addAttribute("comment",comments);
-		System.out.println(comments.getContent());
-		System.out.println(comments.getUser_id());
-		System.out.println(comments.getBoard_id());
-		}
-		return "redirect:/board/"+boardId;
-	}
+//	@PostMapping("/board/{boardId}/comments")
+//	public String addComments(@PathVariable("boardId")int boardId,@RequestParam Map<String,String> map, Model model,HttpSession session) {
+//		if(session.getAttribute("userName")!=null) {
+//		Board board=boardService.get(boardId);
+//		Integer sessionId=(Integer)(session.getAttribute("userId"));
+//		int userId=(sessionId!=null) ? sessionId.intValue():0;
+//		User user=userService.get(userId);
+//		Comments comments= new Comments();
+//		comments.setBoard_id(board.getId());
+//		comments.setUser_id(userId);
+//		comments.setContent(map.get("comments"));
+//		comments.setComment_id(0);
+//		commentsService.add(comments);
+//		model.addAttribute("nickname",user.getUserId());
+//		model.addAttribute("comment",comments);
+//		System.out.println(comments.getContent());
+//		System.out.println(comments.getUser_id());
+//		System.out.println(comments.getBoard_id());
+//		}
+//		return "redirect:/board/"+boardId;
+//	}
 }

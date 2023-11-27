@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html mxlns:th="http://www.thymeleaf.org" lang="ko">
+  <head th:fragment="commentsFragmentHead">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+  </head>
+    <body>
+    <div th:fragment="commentsFragment">
+      <form
+        action="/comments/add"
+        method="post"
+        th:if="${session.userId} != null"
+      >
+        <input type="text" name="content" placeholder="Comment" />
+        <input type="hidden" name="user_id" th:value="${session.userId}" />
+        <input type="hidden" name="board_id" th:value="*{id}" />
+        <button>댓글 추가</button>
+      </form>
+      <hr />
+      <ul id="comment-list" th:data-board-id="*{id}"></ul>
+      <script src="/scripts/board/comments.js"></script>
+    </div>
+  </body>
+  
+<!--
+<body>
+	<div th:fragment="commentsFragment" class="comments container">
+     		<form 
+     		 action="/comments/add"
+     		 method="post"
+     		 th:if="${session.userId}!= null"
+     		 >
+      		<div class="comment_area">
+				<div class="form-floating">
+					<input type="hidden" name="board_id" th:value="*{id}"  />
+					<input type="hidden" name="user_id" th:value="${session.userId}" />
+  					<textarea class="form-control" placeholder=""style="height: 70px"name="content" id="content"></textarea>
+  					<label for="floatingTextarea2" style="font-size: 12px;"></label>
+				</div>
+      		</div>
+		<div class="comment_btn">
+			<button class="btn btn-primary" style="height: 2.2rem; border-bottom-color: white;"type="submit">
+				댓글 달기				
+			</button>
+			<button class="btn btn-primary" style="height: 2.2rem;" type="button" onclick="alert('로그인 후 이용해주세요')">
+				답글 달기				
+			</button>
+		</div>
+      </form>
+      <hr />
+      <ul id="comment-list" th:data-board-id="*{id}">
+	  </ul>
+	  <script src="/scripts/board/comments.js"></script>
+	 </div>
+</body>
+-->
+
+</html>

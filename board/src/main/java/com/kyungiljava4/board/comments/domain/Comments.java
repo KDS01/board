@@ -1,6 +1,7 @@
 package com.kyungiljava4.board.comments.domain;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,14 +12,14 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class Comments {
 	private int id;
-	private int board_id;
-	private int user_id;
 	@NonNull
 	private String content;
 	private Timestamp createAt;
+	private boolean withdrew = false;
+	private final int user_id;
+	private final int board_id;
 	private int comment_id;
-
+	private List<Comments> children;
 }
