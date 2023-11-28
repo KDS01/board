@@ -10,9 +10,7 @@
       </div>
       <hr />
       <p th:utext="*{content}"></p>
-      <div th:replace="/board/comments :: commentsFragment">
-		  
-	  </div>
+      <div th:replace="~{/board/comments :: commentsFragment}"></div>
 
 	
    <!--	<th:block th:if="${session.userName}!=null">

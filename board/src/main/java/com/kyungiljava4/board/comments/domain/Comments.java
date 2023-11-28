@@ -21,5 +21,6 @@ public class Comments {
 	private final int user_id;
 	private final int board_id;
 	private int comment_id;
+	private String userName;
 	private List<Comments> children;
 }

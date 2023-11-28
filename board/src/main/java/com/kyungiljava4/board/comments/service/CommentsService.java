@@ -39,6 +39,10 @@ public class CommentsService {
 		});
 		return list;
 	}
+	public int getCount(int boardId) {
+		int count=commentsDao.getCountInboard(boardId);
+		return count;
+	}
 	
 	
 

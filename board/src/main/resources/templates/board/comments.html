@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html mxlns:th="http://www.thymeleaf.org" lang="ko">
   <head th:fragment="commentsFragmentHead">
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	 <link rel="stylesheet" href="/styles/board/comment.css" /> 
   </head>
     <body>
     <div th:fragment="commentsFragment">
@@ -9,6 +10,7 @@
         action="/comments/add"
         method="post"
         th:if="${session.userId} != null"
+        id="board_comment"
       >
         <input type="text" name="content" placeholder="Comment" />
         <input type="hidden" name="user_id" th:value="${session.userId}" />
@@ -16,7 +18,12 @@
         <button>댓글 추가</button>
       </form>
       <hr />
-      <ul id="comment-list" th:data-board-id="*{id}"></ul>
+      <div
+      	id="comment-list"
+      	th:data-board-id="*{id}"
+      	class="comment-list"> 
+	  </div>
+	  <button id="add-comment-btn">댓글 더보기</button>
       <script src="/scripts/board/comments.js"></script>
     </div>
   </body>
