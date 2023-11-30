@@ -1,14 +1,21 @@
 package com.kyungiljava4.board.board.controller;
 
+import java.io.File;
 import java.util.Map;
+import java.util.UUID;
 
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kyungiljava4.board.board.domain.Board;
 import com.kyungiljava4.board.board.service.BoardService;
@@ -50,12 +57,19 @@ public class BoardController {
 	}
 	@PostMapping("/add")
 	public String add(@RequestParam Map<String, String> data, HttpSession session) {
+		
 		if(session.getAttribute("userName")!=null) {
-		int userId=(Integer)session.getAttribute("userId");
-		boardService.add(new Board(
+			String tempContent = data.get("content");
+			tempContent.replaceAll("width=\"[0-9]*\"", "width\"100%\"");
+			tempContent.replaceAll("height=\"[0-9]*\"", "height\"auto\"");
+			
+			
+			int userId=(Integer)session.getAttribute("userId");
+				boardService.add(new Board(
 				userId,
 				data.get("title"),
-				data.get("content")));
+				tempContent)
+						);
 		}
 		return "redirect:/";
 	}
@@ -102,4 +116,30 @@ public class BoardController {
 //		}
 //		return "redirect:/board/"+boardId;
 //	}
+	@PostMapping("/upload/image")
+	@ResponseBody
+	public ModelMap uploadImg(MultipartHttpServletRequest request) {
+		ModelMap modelMap= new ModelMap();
+		try {
+			MultipartFile uploaded = request.getFile("upload");
+			String originName=uploaded.getOriginalFilename();
+			String[] tempNames=originName.split("[.]");
+			String ext="." + tempNames[tempNames.length-1];
+			String randomize = UUID.randomUUID()+ext;
+			String savePath="C:\\Users\\KGA\\git\\board_spring\\board\\src\\main\\resources\\static\\imgs\\"+randomize;
+			
+			String uploadUrl = "/imgs/" + randomize;
+			File file =new File(savePath);
+			uploaded.transferTo(file);
+			modelMap.addAttribute("uploaded", true);
+			modelMap.addAttribute("url",uploadUrl);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return modelMap;
+		
+	}
 }

@@ -7,17 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kyungiljava4.board.board.dao.BoardDao;
+import com.kyungiljava4.board.board.dao.BoardDaoMySQL;
 import com.kyungiljava4.board.board.domain.Board;
 import com.kyungiljava4.board.user.dao.UserDao;
+import com.kyungiljava4.board.user.dao.UserDaoMySQL;
 
 
 
 @Service
 public class BoardService {
 	@Autowired
-	BoardDao boardDao;
+	BoardDaoMySQL boardDao;
 	@Autowired
-	UserDao userDao;
+	UserDaoMySQL userDao;
 	
 	public void add(Board board) {
 		boardDao.add(board);
